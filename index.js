@@ -1,7 +1,7 @@
 const gameBoard = (() => {
     const cells = Array(9).fill(null);
 
-    const getBoard = () => {return[...cells]};
+    const getBoard = () => cells;
 
     const placeMark = (cellIndex, mark) => {
         if (cells[cellIndex] === null) {
@@ -36,12 +36,6 @@ const gameController = (() => {
     const switchTurn = () => {
     currentPlayer = currentPlayer === player1 ? player2 : player1;
     };
-
-    const getBoardState = () => {
-        const board = gameBoard.getBoard();
-        console.log(board);
-        return board;
-    }
 
     const restartGame = () => {
         console.log("Resetting the Game....")
@@ -83,7 +77,7 @@ const gameController = (() => {
             return;
         }
 
-        getBoardState();
+        displayController.renderBoard();
         checkWinner();
 
         if (gameRunning) {
@@ -95,21 +89,35 @@ const gameController = (() => {
     return {
         playRound: playTurn,
         showTurn: playerTurn,
-        displayBoard: getBoardState,
         restart: restartGame,
+        isGameRunning: () => gameRunning,
     };
 }) ();
 
-gameController.displayBoard();    // Show Board values
-gameController.showTurn();        // Start the game
-gameController.playRound(0);      // Player 1 plays
-gameController.playRound(0);      // Invalid, cell occupied
-gameController.playRound(1);      // Player 2 plays
-gameController.playRound(2);      // Player 1 plays
-gameController.playRound(3);      // Player 2 plays
-gameController.playRound(4);      // Player 1 plays
-gameController.playRound(5);      // Player 2 plays
-gameController.playRound(6);      // PLayer 1 won
-gameController.playRound(7);      // Tries to play again
-gameController.restart();         // Reset Board
-gameController.displayBoard();    // Show Board values
+const displayController = (() => {
+    const uiCells = document.querySelectorAll(".cell");
+    const boardState = gameBoard.getBoard();
+    const renderBoard = () => {
+        boardState.forEach((mark, index) => {
+            if (boardState[index]!==null) {
+                uiCells[index].textContent = mark;    
+            }
+        });
+    }
+
+    uiCells.forEach(function(cell) {
+        cell.addEventListener('click', function() {
+            if (!gameController.isGameRunning()) {
+                return;
+            }
+            const cellIndex = parseInt(this.getAttribute('data-index'));
+            gameController.playRound(cellIndex);
+        });
+    });
+
+    return {
+        renderBoard
+    }
+}) ();
+
+gameController.showTurn();
