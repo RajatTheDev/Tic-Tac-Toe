@@ -102,7 +102,16 @@ const displayController = (() => {
     const boardState = gameBoard.getBoard();
     const renderBoard = () => {
         boardState.forEach((mark, index) => {
-            uiCells[index].textContent = mark === null ? "" : mark;
+            const cell = uiCells[index];
+            cell.textContent = mark === null ? "" : mark;
+
+            cell.classList.remove("x-mark", "o-mark");
+
+            if (mark === "X") {
+                cell.classList.add("x-mark");
+            } else if (mark === "0") {
+                cell.classList.add("o-mark");
+            }
         });
     };
 
