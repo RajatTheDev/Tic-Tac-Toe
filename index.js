@@ -26,6 +26,9 @@ function createPlayer (player, mark) {
 const gameController = (() => {
     let gameRunning = false;
     let player1, player2, currentPlayer;
+    const moveSound = new Audio("/sounds/moveSound.wav");
+    const winSound = new Audio("/sounds/winSound.wav");
+    const drawSound = new Audio("/sounds/drawSound.wav");
 
     const newGame = (name1, name2) => {
         gameBoard.resetBoard();
@@ -46,6 +49,10 @@ const gameController = (() => {
     };
 
     const resetGame = () => {
+        winSound.pause();
+        drawSound.pause();
+        winSound.currentTime = 0;
+        drawSound.currentTime = 0;
         gameRunning = true;
         currentPlayer = player1;
         return gameBoard.resetBoard();
@@ -61,6 +68,8 @@ const gameController = (() => {
             if (boardState[a] === boardState[b] && boardState[a] === boardState[c] && boardState[a] != null) {
                 gameRunning = false;
                 displayController.updateStatusMessage(`Game Over! ${currentPlayer.getName()} wins! 🎉`);
+                winSound.currentTime = 0;
+                winSound.play();
                 return;
             }
         }
@@ -68,11 +77,17 @@ const gameController = (() => {
         if (boardState.every(cell => cell !== null)) {
             gameRunning = false;
             displayController.updateStatusMessage("It's a draw! No one wins this round. 🤝");
+            drawSound.currentTime = 0;
+            drawSound.play();
             return;
         }
     }
 
     const playRound = (index) => {
+
+        moveSound.currentTime = 0;
+        moveSound.play();
+        
         if (!gameRunning) {
             return false;
         }
@@ -169,6 +184,7 @@ const displayController = (() => {
 
     const newGameButton = document.getElementById("newGame-button");
     newGameButton.addEventListener("click", function() {
+        gameController.resetGame();
         form.reset();
         gameScreen.style.display = "none";
         startScreen.style.display = "block";
