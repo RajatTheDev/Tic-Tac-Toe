@@ -70,6 +70,12 @@ const gameController = (() => {
                 displayController.updateStatusMessage(`Game Over! ${currentPlayer.getName()} wins! 🎉`);
                 winSound.currentTime = 0;
                 winSound.play();
+
+                confetti({
+                    particleCount: 150,
+                    spread: 100,
+                    origin: { y: 0.6 },
+    });
                 return;
             }
         }
