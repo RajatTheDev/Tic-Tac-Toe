@@ -50,19 +50,19 @@ h1 {
     cursor: pointer;
     border: none;
     border-radius: 5px;
-    background-color: #28e942;
+    background-color: #ff2079;
     color: white;
     transition: background-color .5s ease;
 }
 
 #player-form button:hover {
-    background-color: #167523;
+    background-color: #93224f;
     color: white;
 }
 
 form p {
     font-size: 1.1rem;
-    color: #e92c28;
+    color: #ffe768;
 }
 
 .game-screen {
@@ -128,7 +128,14 @@ form p {
     transition: background-color .5s ease;
 }
 
+.game-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
 .game-buttons button {
+    width: 150px;
     padding: 10px 20px;
     font-size: 1.2rem;
     cursor: pointer;
