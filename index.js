@@ -45,8 +45,9 @@ const gameController = (() => {
         currentPlayer = currentPlayer === player1 ? player2 : player1;
     };
 
-    const restartGame = () => {
+    const resetGame = () => {
         gameRunning = true;
+        currentPlayer = player1;
         return gameBoard.resetBoard();
     }
 
@@ -92,7 +93,7 @@ const gameController = (() => {
         newGame,
         playRound,
         showTurn,
-        restartGame,
+        resetGame,
         isGameRunning: () => gameRunning,
     };
 }) ();
@@ -149,7 +150,7 @@ const displayController = (() => {
 
     const resetButton = document.getElementById("reset-button");
     resetButton.addEventListener("click", function() {
-        gameController.restartGame();
+        gameController.resetGame();
         displayController.renderBoard();
         displayController.updateStatusMessage("Game restarted! X's turn.");
     });
