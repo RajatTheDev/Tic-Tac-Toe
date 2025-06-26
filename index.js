@@ -26,9 +26,9 @@ function createPlayer (player, mark) {
 const gameController = (() => {
     let gameRunning = false;
     let player1, player2, currentPlayer;
-    const moveSound = new Audio("sounds/moveSound.wav");
-    const winSound = new Audio("sounds/winSound.wav");
-    const drawSound = new Audio("sounds/drawSound.wav");
+    const moveSound = new Audio("./sounds/moveSound.wav");
+    const winSound = new Audio("./sounds/winSound.wav");
+    const drawSound = new Audio("./sounds/drawSound.wav");
 
     const newGame = (name1, name2) => {
         gameBoard.resetBoard();
