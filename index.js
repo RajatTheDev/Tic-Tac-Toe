@@ -73,11 +73,13 @@ const gameController = (() => {
     }
 
     const playRound = (index) => {
+        if (!gameRunning) {
+            return false;
+        }
 
         const move = gameBoard.placeMark(index, currentPlayer.getMark());
         if (!move) {
-            alert("Try again, cell is taken!");
-            return;
+            return false;
         }
 
         displayController.renderBoard();
@@ -87,6 +89,7 @@ const gameController = (() => {
             switchTurn();
             showTurn();
         }
+        return true;
     }
 
     return {
@@ -118,13 +121,22 @@ const displayController = (() => {
 
 
     uiCells.forEach(function(cell) {
-        cell.addEventListener('click', function() {
+        cell.addEventListener('click', function () {
             if (!gameController.isGameRunning()) {
+                cell.classList.add('shake');
+                setTimeout(() => cell.classList.remove('shake'), 300);
                 return;
             }
-            const cellIndex = parseInt(this.getAttribute('data-index'));
-            gameController.playRound(cellIndex);
-        });
+
+        const cellIndex = parseInt(this.getAttribute('data-index'));
+        const moveSuccess = gameController.playRound(cellIndex);
+
+        if (!moveSuccess) {
+            cell.classList.add('shake');
+            setTimeout(() => cell.classList.remove('shake'), 300);
+        }
+    });
+
     });
 
     const startScreen = document.querySelector(".start-screen");
