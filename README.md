@@ -20,13 +20,13 @@ This project is a modern take on the classic Tic Tac Toe game, developed as a pe
 ## Preview
      
 **🎮 Game Start Screen**
-![Start Screen](images/start-screen.png)
+![Start Screen](/screenshots/start-screen.png)
 
 **🕹️ Gameplay in Progress**
-![Game Screen](images/game-screen.png)
+![Game Screen](/screenshots/game-screen.png)
 
 **🏆 Win with Confetti Celebration**
-![Win Confetti](images/win-screen.png)
+![Win Confetti](/screenshots/win-screen.png)
 
 ## Features
 
