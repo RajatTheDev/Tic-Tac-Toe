@@ -30,7 +30,7 @@ const gameController = (() => {
     const newGame = (name1, name2) => {
         gameBoard.resetBoard();
         player1 = createPlayer(name1, "X");
-        player2 = createPlayer(name2, "0");
+        player2 = createPlayer(name2, "O");
         currentPlayer = player1;
         gameRunning = true;
         displayController.renderBoard();
@@ -110,7 +110,7 @@ const displayController = (() => {
 
             if (mark === "X") {
                 cell.classList.add("x-mark");
-            } else if (mark === "0") {
+            } else if (mark === "O") {
                 cell.classList.add("o-mark");
             }
         });
